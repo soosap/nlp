@@ -8,7 +8,7 @@ def hello():
     return "Hello World!"
 
 
-@app.route("/system")
+@app.route("/abstract")
 def system():
     name = 'Docker'
     mail = 'my_email@gmail.com'
