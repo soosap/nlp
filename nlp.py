@@ -22,15 +22,15 @@ def home():
 
 @app.route("/abstract", methods=['GET', 'POST'])
 def abstract():
-    blog_post = contentful_delivery_client.entry('jZwuzvJy0g4OICOQU4y2S')
-    raw_content = blog_post.content
-    without_markdown = markdown(raw_content)
-    soup = BeautifulSoup(without_markdown, features="html.parser")
-
     if request.method == 'POST':
         print('request.data', request.data)
         return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
     else:
+        blog_post = contentful_delivery_client.entry('jZwuzvJy0g4OICOQU4y2S')
+        raw_content = blog_post.content
+        without_markdown = markdown(raw_content)
+        soup = BeautifulSoup(without_markdown, features="html.parser")
+
         return jsonify(
             # raw_content=raw_content,
             # without_markdown=without_markdown,
