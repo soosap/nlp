@@ -1,4 +1,5 @@
 import os
+import json
 from flask import Flask, jsonify, request
 import contentful
 import contentful_management
@@ -23,7 +24,7 @@ def abstract():
 
     if request.method == 'POST':
         print('request.data', request.data)
-        return request.data
+        return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
     else:
         return jsonify(
             # raw_content=raw_content,
