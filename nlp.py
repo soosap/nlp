@@ -15,6 +15,11 @@ contentful_management_client = contentful_management.Client(
     os.environ['CONTENTFUL_BLOG_MANAGEMENT_TOKEN'])
 
 
+@app.route("/")
+def home():
+    return "Natural language processing server for soosap Tech Blog."
+
+
 @app.route("/abstract", methods=['GET', 'POST'])
 def abstract():
     blog_post = contentful_delivery_client.entry('jZwuzvJy0g4OICOQU4y2S')
@@ -30,7 +35,7 @@ def abstract():
             # raw_content=raw_content,
             # without_markdown=without_markdown,
             soup=''.join(soup.findAll(text=True)),
-            data=request
+            data=request.data
         )
 
 
