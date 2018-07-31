@@ -6,8 +6,8 @@ This project is a tiny natural language processing backend.
 
 ## Technology stack
 
-* Flask
 * nltk
+* Flask
 
 ## Setup
 
