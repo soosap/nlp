@@ -14,7 +14,7 @@ contentful_management_client = contentful_management.Client(
     os.environ['CONTENTFUL_BLOG_MANAGEMENT_TOKEN'])
 
 
-@app.route("/abstract", methods=['POST', 'GET'])
+@app.route("/abstract", methods=['GET', 'POST'])
 def abstract():
     blog_post = contentful_delivery_client.entry('jZwuzvJy0g4OICOQU4y2S')
     raw_content = blog_post.content
