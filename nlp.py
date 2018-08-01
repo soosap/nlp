@@ -24,7 +24,7 @@ def home():
 def abstract():
     if request.method == 'POST':
         print('request.data', request.data)
-        content = requests.data.['fields'].get('content')
+        content = requests.data['fields'].get('content')
         print('content', content)
         print('content', content)
         print('content', content)
