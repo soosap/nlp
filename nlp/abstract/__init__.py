@@ -18,12 +18,11 @@ def create_app(settings_override=None):
     contentful_management_client = contentful_management.Client(
         os.environ['CONTENTFUL_BLOG_MANAGEMENT_TOKEN'])
 
-    @app.route("/")
+    @app.route("/v1", strict_slashes=False)
     def documentation_abstract():
         return "Abstract extraction"
 
-
-    @app.route("/", methods=['POST'])
+    @app.route("/v1", methods=['POST'])
     def abstract():
         print('os.environ["FLASK_ENV"]', os.environ['FLASK_ENV'])
         if os.environ['FLASK_ENV'] == 'production':

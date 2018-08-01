@@ -1,8 +1,8 @@
 from werkzeug.wsgi import DispatcherMiddleware
 
-from nlp import abstract, sentiment
+from nlp import abstract, sentiment, welcome
 
-application = DispatcherMiddleware(abstract.create_app(), {
+application = DispatcherMiddleware(welcome.create_app(), {
     '/abstract': abstract.create_app(),
     '/sentiment': sentiment.create_app(),
 })
