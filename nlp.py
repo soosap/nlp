@@ -26,6 +26,8 @@ def abstract():
         print('request.data', request.data)
         content = requests.data.fields.content
         print('content', content)
+        print('content', content)
+        print('content', content)
         return json.dumps({'content': content}), 200, {'ContentType': 'application/json'}
     else:
         blog_post = contentful_delivery_client.entry('jZwuzvJy0g4OICOQU4y2S')
