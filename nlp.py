@@ -21,6 +21,7 @@ def home():
 
 @app.route("/abstract", methods=['POST'])
 def abstract():
+    print('os.environ["FLASK_ENV"]', os.environ['FLASK_ENV'])
     if os.environ['FLASK_ENV'] == 'production':
         print('request.data', dir(request.data))
         # blog_post = request.data['fields'].get('content')
