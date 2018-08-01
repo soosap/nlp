@@ -23,8 +23,8 @@ def home():
 @app.route("/abstract", methods=['GET', 'POST'])
 def abstract():
     if request.method == 'POST':
-        print('request.data', request.data)
-        content = requests.data['fields'].get('content')
+        print('request.data', dir(request.data))
+        content = request.data['fields'].get('content')
         print('content', content)
         print('content', content)
         print('content', content)
