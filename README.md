@@ -9,7 +9,7 @@ This project is a tiny natural language processing backend.
 * Flask
 * nltk
 
-## Setup
+## Development
 
 * Create a virtual environment and install dependencies
 * Get access to VAULT_TOKEN and VAULT_ADDR env variables

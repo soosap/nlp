@@ -34,6 +34,7 @@ def abstract():
         return jsonify(
             # raw_content=raw_content,
             # without_markdown=without_markdown,
+            test='string',
             soup=''.join(soup.findAll(text=True)),
             data=request.data
         )
