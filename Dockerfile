@@ -1,6 +1,7 @@
 FROM saronia/python:3.7.0-alpine
 LABEL maintainer="prasath.soosaithasan@protonmail.ch"
 
+ENV FLASK_ENV=production
 ENV CONTENTFUL_BLOG_SPACE_ID=secret/soosap/website/CONTENTFUL_BLOG_SPACE_ID
 ENV CONTENTFUL_BLOG_DELIVERY_TOKEN=secret/soosap/website/CONTENTFUL_BLOG_DELIVERY_TOKEN
 ENV CONTENTFUL_BLOG_MANAGEMENT_TOKEN=secret/soosap/website/CONTENTFUL_BLOG_MANAGEMENT_TOKEN
