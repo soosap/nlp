@@ -23,10 +23,10 @@ def home():
 def abstract():
     if os.environ['FLASK_ENV'] == 'production':
         print('request.data', dir(request.data))
-        blog_post = request.data['fields'].get('content')
-        print('content', content)
-        print('content', content)
-        print('content', content)
+        # blog_post = request.data['fields'].get('content')
+        # print('content', content)
+        # print('content', content)
+        # print('content', content)
     else:
         blog_post = contentful_delivery_client.entry(
             'jZwuzvJy0g4OICOQU4y2S')
