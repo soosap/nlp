@@ -1,8 +1,11 @@
 # N L P
 
-This project is a tiny natural language processing backend.
+This repository contains a number of standalone natural language processing (NLP) projects.
+
+## Projects
 
 * Abstract extraction
+* Sentiment analysis
 
 ## Technology stack
 
@@ -14,3 +17,7 @@ This project is a tiny natural language processing backend.
 * Create a virtual environment and install dependencies
 * Get access to VAULT_TOKEN and VAULT_ADDR env variables
 * Start development server w/ `make dev`
+
+## Contributors
+
+* @soosap
