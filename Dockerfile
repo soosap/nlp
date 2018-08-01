@@ -2,7 +2,6 @@ FROM saronia/python:3.7.0-alpine
 LABEL maintainer="prasath.soosaithasan@protonmail.ch"
 
 ENV PYTHONUNBUFFERED=1
-# PYTHONUNBUFFERED=0 allows logging to stderr
 ENV FLASK_ENV=production
 ENV CONTENTFUL_BLOG_SPACE_ID=secret/soosap/website/CONTENTFUL_BLOG_SPACE_ID
 ENV CONTENTFUL_BLOG_DELIVERY_TOKEN=secret/soosap/website/CONTENTFUL_BLOG_DELIVERY_TOKEN
@@ -17,4 +16,5 @@ COPY nlp.py wsgi.py ./
 
 EXPOSE 5000
 
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "wsgi"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--log-level=debug", "wsgi"]
+# --log-level debug, warning, error, critical

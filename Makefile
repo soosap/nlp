@@ -7,7 +7,7 @@ export CONTENTFUL_BLOG_MANAGEMENT_TOKEN=secret/soosap/website/CONTENTFUL_BLOG_MA
 export CONTENTFUL_BLOG_PREVIEW_TOKEN=secret/soosap/website/CONTENTFUL_BLOG_PREVIEW_TOKEN
 
 dev:
-	./scripts/vaultcar.sh gunicorn --reload --bind 0.0.0.0:5000 wsgi
+	./scripts/vaultcar.sh gunicorn --reload --log-level=debug --bind 0.0.0.0:5000 wsgi
 
 requirements:
 	pip freeze > requirements.txt

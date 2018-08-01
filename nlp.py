@@ -1,5 +1,6 @@
 import os
 import sys
+import logging
 from flask import Flask, jsonify, request
 import contentful
 import contentful_management
@@ -7,6 +8,12 @@ from markdown import markdown
 from bs4 import BeautifulSoup
 
 app = Flask(__name__)
+
+if __name__ != "__main__":
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
+
 
 contentful_delivery_client = contentful.Client(
     os.environ['CONTENTFUL_BLOG_SPACE_ID'],
@@ -17,6 +24,10 @@ contentful_management_client = contentful_management.Client(
 @app.route("/")
 def home():
     return "Natural language processing server | soosap Tech Blog"
+
+@app.route("/abstract")
+def documentation_abstract():
+    return "Abstract extraction"
 
 
 @app.route("/abstract", methods=['POST'])
