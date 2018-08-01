@@ -26,8 +26,8 @@ def create_app(settings_override=None):
     def abstract():
         print('os.environ["FLASK_ENV"]', os.environ['FLASK_ENV'])
         if os.environ['FLASK_ENV'] == 'production':
-            print('request.data', dir(request.data))
             print('request.form', dir(request.form))
+            print('request.data', dir(request.data))
             print('request.data', request.form.get('fields'))
             # blog_post = request.data['fields'].get('content')
             # print('content', content)
