@@ -9,8 +9,8 @@ This repository contains a number of standalone natural language processing (NLP
 
 ## Technology stack
 
-* nltk
 * Flask
+* nltk
 
 ## Development
 
