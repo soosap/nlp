@@ -1,4 +1,11 @@
-from nlp import app as application
+from werkzeug.wsgi import DispatcherMiddleware
+
+from nlp import abstract, sentiment
+
+application = DispatcherMiddleware(abstract.create_app(), {
+    '/abstract': abstract.create_app(),
+    '/sentiment': sentiment.create_app(),
+})
 
 if __name__ == "__main__":
     application.run()
