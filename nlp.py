@@ -1,4 +1,5 @@
 import os
+import sys
 from flask import Flask, jsonify, request
 import contentful
 import contentful_management
@@ -14,6 +15,10 @@ contentful_management_client = contentful_management.Client(
     os.environ['CONTENTFUL_BLOG_MANAGEMENT_TOKEN'])
 
 
+def print_stderr(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
+
+
 @app.route("/")
 def home():
     return "Natural language processing server | soosap Tech Blog"
@@ -21,9 +26,9 @@ def home():
 
 @app.route("/abstract", methods=['POST'])
 def abstract():
-    print('os.environ["FLASK_ENV"]', os.environ['FLASK_ENV'])
+    print_stderr('os.environ["FLASK_ENV"]', os.environ['FLASK_ENV'])
     if os.environ['FLASK_ENV'] == 'production':
-        print('request.data', dir(request.data))
+        print_stderr('request.data', dir(request.data), , file=sys.stderr)
         # blog_post = request.data['fields'].get('content')
         # print('content', content)
         # print('content', content)
