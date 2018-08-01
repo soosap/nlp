@@ -36,7 +36,6 @@ def abstract():
             # without_markdown=without_markdown,
             test='string',
             soup=''.join(soup.findAll(text=True)),
-            data=request.data
         )
 
 
