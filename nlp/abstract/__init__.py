@@ -24,28 +24,24 @@ def create_app(settings_override=None):
 
     @app.route("/v1", methods=['POST'])
     def abstract():
-        print('os.environ["FLASK_ENV"]', os.environ['FLASK_ENV'])
         if os.environ['FLASK_ENV'] == 'production':
             data = request.get_json()
-
-            blog_post = data['fields']['content']
-            print('blog_post', blog_post)
-            # print('content', content)
-            # print('content', content)
-            # print('content', content)
+            blog_post = data['fields']['content']['en-GB']
         else:
-            blog_post = contentful_delivery_client.entry(
+            entry = contentful_delivery_client.entry(
                 'jZwuzvJy0g4OICOQU4y2S')
+            blog_post = entry.content
 
-        # raw_content = blog_post.content
-        # without_markdown = markdown(raw_content)
-        # soup = BeautifulSoup(without_markdown, features="html.parser")
+        print('blog_post', blog_post)
+        
+        without_markdown = markdown(blog_post)
+        soup = BeautifulSoup(without_markdown, features="html.parser")
 
         return jsonify(
             # raw_content=raw_content,
             # without_markdown=without_markdown,
             test='string',
-            # soup=''.join(soup.findAll(text=True)),
+            soup=''.join(soup.findAll(text=True)),
         )
 
 
