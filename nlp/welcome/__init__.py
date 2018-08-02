@@ -6,6 +6,6 @@ def create_app(settings_override=None):
 
     @app.route("/")
     def welcome():
-        return "Natural language processing"
+        return '<h1>Natural language processing</h1>'
 
     return app

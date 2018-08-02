@@ -18,9 +18,9 @@ def create_app(settings_override=None):
     contentful_management_client = contentful_management.Client(
         os.environ['CONTENTFUL_BLOG_MANAGEMENT_TOKEN'])
 
-    @app.route("/v1", strict_slashes=False)
+    @app.route("/v1")
     def documentation_abstract():
-        return "Abstract extraction"
+        return '<h1>Abstract extraction</h1>'
 
     @app.route("/v1", methods=['POST'])
     def abstract():
