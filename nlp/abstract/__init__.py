@@ -1,7 +1,7 @@
 import os
 import sys
 import logging
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 import contentful
 import contentful_management
 from markdown import markdown
@@ -12,8 +12,6 @@ from .. import factory
 
 def create_app(settings_override=None):
     app = factory.create_app(__name__, __path__, settings_override)
-    if os.environ['FLASK_ENV'] == 'development':
-        app.config['DEBUG'] = True
     contentful_delivery_client = contentful.Client(
         os.environ['CONTENTFUL_BLOG_SPACE_ID'],
         os.environ['CONTENTFUL_BLOG_DELIVERY_TOKEN'])
@@ -22,7 +20,7 @@ def create_app(settings_override=None):
 
     @app.route('/v1')
     def abstract_docs():
-        return '<h1>Abstract extraction</h1>'
+        return render_template('abstract.html')
 
     @app.route('/v1', methods=['POST'])
     def abstract():

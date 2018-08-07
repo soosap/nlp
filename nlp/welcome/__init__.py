@@ -1,3 +1,4 @@
+from flask import render_template
 from .. import factory
 
 
@@ -6,6 +7,6 @@ def create_app(settings_override=None):
 
     @app.route("/")
     def welcome():
-        return '<h1>Natural language processing</h1>'
+        return render_template('welcome.html')
 
     return app
