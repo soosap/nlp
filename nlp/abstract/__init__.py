@@ -12,17 +12,19 @@ from .. import factory
 
 def create_app(settings_override=None):
     app = factory.create_app(__name__, __path__, settings_override)
+    if os.environ['FLASK_ENV'] == 'development':
+        app.config['DEBUG'] = True
     contentful_delivery_client = contentful.Client(
         os.environ['CONTENTFUL_BLOG_SPACE_ID'],
         os.environ['CONTENTFUL_BLOG_DELIVERY_TOKEN'])
     contentful_management_client = contentful_management.Client(
         os.environ['CONTENTFUL_BLOG_MANAGEMENT_TOKEN'])
 
-    @app.route("/v1")
-    def documentation_abstract():
+    @app.route('/v1')
+    def abstract_docs():
         return '<h1>Abstract extraction</h1>'
 
-    @app.route("/v1", methods=['POST'])
+    @app.route('/v1', methods=['POST'])
     def abstract():
         if os.environ['FLASK_ENV'] == 'production':
             data = request.get_json()
@@ -35,7 +37,7 @@ def create_app(settings_override=None):
         print('blog_post', blog_post)
         
         without_markdown = markdown(blog_post)
-        soup = BeautifulSoup(without_markdown, features="html.parser")
+        soup = BeautifulSoup(without_markdown, features='html.parser')
 
         return jsonify(
             # raw_content=raw_content,
