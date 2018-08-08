@@ -44,6 +44,8 @@ def create_app(settings_override=None):
             entry = contentful_delivery_client.entry(entry_id)
             content_raw = entry.content
 
+        number_of_sents = 4
+
         """
         Determine contentful resource
         """
@@ -89,6 +91,9 @@ def create_app(settings_override=None):
         content_in_text = content_soup.get_text()
         sents = sent_tokenize(content_in_text)
 
+        if len(sents) < number_of_sents:
+            return 'Not enough sentences for abstract extraction.', 403  
+
         word_sent = word_tokenize(content_in_text.lower())
         _stopwords = set(stopwords.words('english') + list(punctuation) + ["''", "``"])
 
@@ -110,7 +115,7 @@ def create_app(settings_override=None):
         """
         Extract abstract
         """
-        sents_idx = nlargest(4, ranking, key=ranking.get)
+        sents_idx = nlargest(number_of_sents, ranking, key=ranking.get)
 
         abstract = " ".join([sents[j] for j in sorted(sents_idx)])
 
