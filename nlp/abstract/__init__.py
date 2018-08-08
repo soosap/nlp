@@ -41,15 +41,24 @@ def create_app(settings_override=None):
             content_in_html, features='html.parser')
 
         """
-        Remove code snippets while leaving inline code snippets in place.
+        Remove code snippets while leaving inline code snippets in place
         """
         [s.extract() for s in content_soup('code') if len(s.prettify().splitlines()) > 3]
 
+        """
+        Remove headings and subheadings
+        """
+        headings = [s.extract() for s in content_soup('h1')]
+        headings.extend([s.extract() for s in content_soup('h2')])
+        headings.extend([s.extract() for s in content_soup('h3')])
+        headings.extend([s.extract() for s in content_soup('h4')])
+        headings.extend([s.extract() for s in content_soup('h5')])
+        headings.extend([s.extract() for s in content_soup('h6')])
 
         """
         Remove newline characters
         """
-        
+
 
         content_in_text = content_soup.get_text()
 
