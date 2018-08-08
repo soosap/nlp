@@ -58,12 +58,11 @@ def create_app(settings_override=None):
         """
         Remove newline characters
         """
-
+        for s in content_soup.findAll(text=True):
+            if '\n' in s.string and len(s.string) == 1:
+                s.extract()
 
         content_in_text = content_soup.get_text()
-
-
-        
 
         return jsonify(
             # raw_content=raw_content,
