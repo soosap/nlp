@@ -78,6 +78,8 @@ def create_app(settings_override=None):
         headings.extend([s.extract() for s in content_soup('h5')])
         headings.extend([s.extract() for s in content_soup('h6')])
 
+        headings_in_text = " ".join([h.get_text() for h in headings])
+
         """
         Remove newline characters
         """
@@ -89,18 +91,23 @@ def create_app(settings_override=None):
         Create bag of words
         """
         content_in_text = content_soup.get_text()
+        
         sents = sent_tokenize(content_in_text)
 
         if len(sents) < number_of_sents:
             return 'Not enough sentences for abstract extraction.', 403  
 
-        word_sent = word_tokenize(content_in_text.lower())
+        words_in_content = word_tokenize(content_in_text.lower())
+        words_in_content.extend(word_tokenize(headings_in_text.lower()))
         _stopwords = set(stopwords.words('english') + list(punctuation) + ["''", "``"])
 
-        word_sent = [word for word in word_sent if word not in _stopwords]
+        words_in_content = [
+            word for word in words_in_content if word not in _stopwords]
 
-        freq = FreqDist(word_sent)
+        freq = FreqDist(words_in_content)
         top_10 = nlargest(10, freq, key=freq.get)
+        print('top_10', top_10)
+        print('freq', freq.pprint())
 
         """
         Rank sentences by importance
@@ -122,12 +129,13 @@ def create_app(settings_override=None):
         """
         Write abstract to contentful
         """
-        entry_attributes = {'content_type_id': 'post', 'fields': {
-            **entry.fields(), **entry.fields_with_locales(),
-            'abstract': {'en-GB': abstract}
-        }}
+        if not os.environ['FLASK_ENV'] == 'development':
+            entry_attributes = {'content_type_id': 'post', 'fields': {
+                **entry.fields(), **entry.fields_with_locales(),
+                'abstract': {'en-GB': abstract}
+            }}
 
-        entry.update(entry_attributes)
+            entry.update(entry_attributes)
 
         return abstract
 
