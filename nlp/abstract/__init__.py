@@ -26,22 +26,41 @@ def create_app(settings_override=None):
     def abstract():
         if os.environ['FLASK_ENV'] == 'production':
             data = request.get_json()
-            blog_post = data['fields']['content']['en-GB']
+            content_raw = data['fields']['content']['en-GB']
         else:
             entry = contentful_delivery_client.entry(
                 'jZwuzvJy0g4OICOQU4y2S')
-            blog_post = entry.content
+            content_raw = entry.content
 
-        print('blog_post', blog_post)
+        """
+        Remove markdown markup
+        """
+        content_in_html = markdown(content_raw)
+
+        content_soup = BeautifulSoup(
+            content_in_html, features='html.parser')
+
+        """
+        Remove code snippets while leaving inline code snippets in place.
+        """
+        [s.extract() for s in content_soup('code') if len(s.prettify().splitlines()) > 3]
+
+
+        """
+        Remove newline characters
+        """
         
-        without_markdown = markdown(blog_post)
-        soup = BeautifulSoup(without_markdown, features='html.parser')
+
+        content_in_text = content_soup.get_text()
+
+
+        
 
         return jsonify(
             # raw_content=raw_content,
             # without_markdown=without_markdown,
             test='string',
-            soup=''.join(soup.findAll(text=True)),
+            soup=content_in_text,
         )
 
 
