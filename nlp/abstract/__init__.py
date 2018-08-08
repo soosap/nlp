@@ -6,17 +6,24 @@ import contentful
 import contentful_management
 from markdown import markdown
 from bs4 import BeautifulSoup
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import sent_tokenize, word_tokenize
+from string import punctuation
 
 from .. import factory
 
 
 def create_app(settings_override=None):
     app = factory.create_app(__name__, __path__, settings_override)
+
     contentful_delivery_client = contentful.Client(
         os.environ['CONTENTFUL_BLOG_SPACE_ID'],
         os.environ['CONTENTFUL_BLOG_DELIVERY_TOKEN'])
     contentful_management_client = contentful_management.Client(
         os.environ['CONTENTFUL_BLOG_MANAGEMENT_TOKEN'])
+
+    nltk.download('punkt')
 
     @app.route('/v1')
     def abstract_docs():
@@ -62,7 +69,14 @@ def create_app(settings_override=None):
             if '\n' in s.string and len(s.string) == 1:
                 s.extract()
 
+        """
+        Create bag of words
+        """
         content_in_text = content_soup.get_text()
+        sents = sent_tokenize(content_in_text)
+
+        print('sents', sents)
+
 
         return jsonify(
             # raw_content=raw_content,
