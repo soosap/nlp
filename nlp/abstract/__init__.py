@@ -22,9 +22,9 @@ def create_app(settings_override=None):
 
     contentful_delivery_client = contentful.Client(
         os.environ['CONTENTFUL_SPACE_ID'],
-        os.environ['CONTENTFUL_DELIVERY_TOKEN'])
+        os.environ['CONTENTFUL_DELIVERY_ACCESS_TOKEN'])
     contentful_management_client = contentful_management.Client(
-        os.environ['CONTENTFUL_MANAGEMENT_TOKEN'])
+        os.environ['CONTENTFUL_MANAGEMENT_ACCESS_TOKEN'])
 
     nltk.download('punkt')
     nltk.download('stopwords')
