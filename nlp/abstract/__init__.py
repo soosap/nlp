@@ -21,10 +21,10 @@ def create_app(settings_override=None):
     app = factory.create_app(__name__, __path__, settings_override)
 
     contentful_delivery_client = contentful.Client(
-        os.environ['CONTENTFUL_BLOG_SPACE_ID'],
-        os.environ['CONTENTFUL_BLOG_DELIVERY_TOKEN'])
+        os.environ['CONTENTFUL_SPACE_ID'],
+        os.environ['CONTENTFUL_DELIVERY_TOKEN'])
     contentful_management_client = contentful_management.Client(
-        os.environ['CONTENTFUL_BLOG_MANAGEMENT_TOKEN'])
+        os.environ['CONTENTFUL_MANAGEMENT_TOKEN'])
 
     nltk.download('punkt')
     nltk.download('stopwords')
@@ -51,7 +51,7 @@ def create_app(settings_override=None):
         """
         environment_id = 'master'
         entry = contentful_management_client.entries(
-            os.environ['CONTENTFUL_BLOG_SPACE_ID'],
+            os.environ['CONTENTFUL_SPACE_ID'],
             environment_id).find(entry_id)
         print('entry', entry)
 
@@ -106,8 +106,6 @@ def create_app(settings_override=None):
 
         freq = FreqDist(words_in_content)
         top_10 = nlargest(10, freq, key=freq.get)
-        print('top_10', top_10)
-        print('freq', freq.pprint())
 
         """
         Rank sentences by importance
