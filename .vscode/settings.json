@@ -1,0 +1,4 @@
+{
+  "python.linting.pylintPath": "/Users/soosap/anaconda3/bin/pylint",
+  "python.linting.flake8Path": "/Users/soosap/anaconda3/bin/flake8"
+}
